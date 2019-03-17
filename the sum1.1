@@ -1,0 +1,52 @@
+int max= 2147483647;
+		String c=null;
+		Random rand = new Random();
+		ArrayList<String> list = new ArrayList<String>();
+		File file = new File("E:/f1.txt");
+		FileReader f=new FileReader("E:/f1.txt");
+		if(!file.exists()) {
+			 System.out.println("file inexists");
+			 System.exit(0);
+		}
+		LineNumberReader l=new LineNumberReader(f);
+		String[] split1=null;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line;
+			
+			while ((line = br.readLine()) != null) {
+				split1 = line.split("\\s+");
+				}
+			for(int i=0;i<split1.length;i++) {
+				list.add(split1[i]);
+			}
+			for(int i=0;i<list.size();i++) {
+				System.out.println(list.get(i));
+			}
+			}finally {
+				 Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+				for(int i=0;i<list.size();) {
+			     boolean bool=true;
+			     bool=(boolean)pattern.matcher(list.get(i)).matches();
+			     String v=list.get(i);
+			     if(bool==true) {
+			    	 i++;
+			     }
+			     else {
+			    	 int b=rand.nextInt(max);
+			    	 int num=rand.nextInt(2);
+			    	 if(num==1) {	 
+			    	   	 c="-"+String.valueOf(b);
+			    	 }
+			    	 else {
+			    		 c=String.valueOf(b);
+			    	 }
+					list.set(i, c);
+			    	 System.out.println("Warning!Data not standardized.Revised:"+c);
+			    	 i++;
+			      }
+				}
+				for(int i=0;i<list.size();i++) {
+					System.out.println(list.get(i));
+				}
+			}
